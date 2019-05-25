@@ -33,8 +33,8 @@ public class User {
      * @param accountId: id of account
      * @return remainder of current
      */
-    public int getRemainder(int accountId) {
-        return Bank.getRemainder(this, accountId);
+    public int getBalance(int accountId) {
+        return Bank.getBalance(this, accountId);
     }
 
     /**

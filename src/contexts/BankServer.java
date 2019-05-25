@@ -74,7 +74,7 @@ public class BankServer {
             if (account == null) {
                 throw new IllegalArgumentException("No account with such id: " + accountId);
             }
-            account.updateRemainder(addition);
+            account.updateBalance(addition);
         }
     }
 

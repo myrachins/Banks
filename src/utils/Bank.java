@@ -15,7 +15,7 @@ public class Bank {
 
     private static Checker checker = new Checker();
 
-    public static int getRemainder(User user, int accountId) {
+    public static int getBalance(User user, int accountId) {
         if (!checker.hasRights(user.getUserId(), accountId)
                 || !checker.isPasswordValid(user.getUserId(), user.getPassword())) {
             throw new IllegalArgumentException("User doesn't have enough rights to see account with such id: " + accountId);
@@ -24,7 +24,7 @@ public class Bank {
         if (account == null) {
             throw new IllegalArgumentException("No account with such id: " + accountId);
         }
-        return account.getRemainder();
+        return account.getBalance();
     }
 
     public static void updateBalance(User user, int accountId, int addition) {

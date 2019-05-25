@@ -19,7 +19,7 @@ public class Account {
     /**
      * Remainder amount on the account
      */
-    private int remainder;
+    private int balance;
 
     public Account(int accountId, int userId, String type) {
         this.accountId = accountId;
@@ -39,11 +39,11 @@ public class Account {
         return this.type;
     }
 
-    public int getRemainder() {
-        return this.remainder;
+    public int getBalance() {
+        return this.balance;
     }
 
-    public void updateRemainder(int addition) {
-        this.remainder += addition; // TODO: Add Atomic addition
+    public void updateBalance(int addition) {
+        this.balance += addition; // TODO: Add Atomic addition
     }
 }
