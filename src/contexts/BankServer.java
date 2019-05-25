@@ -10,10 +10,27 @@ import java.util.*;
  */
 public class BankServer {
 
-    private static ArrayList<User> users;
+    private static final ArrayList<User> users = new ArrayList<>();
 
-    private static ArrayList<Account> accounts;
+    private static final ArrayList<Account> accounts = new ArrayList<>();
 
+    public static User getUser(int userId) {
+        synchronized (users) {
+            return users.stream()
+                    .filter((user) -> user.getUserId() == userId)
+                    .findAny()
+                    .orElse(null);
+        }
+    }
+
+    public static Account GetAccount(int accountId) {
+        synchronized (accounts) {
+            return accounts.stream()
+                    .filter((account) -> account.getAccountId() == accountId)
+                    .findAny()
+                    .orElse(null);
+        }
+    }
 
     /**
      * Adds user to the database
@@ -22,16 +39,24 @@ public class BankServer {
      * @return Created user
      */
     public static User addUser(String login, String password) {
-        // TODO implement here
-        return null;
+        User user;
+        synchronized (users) {
+            user = new User(users.size() + 1, login, password);
+            users.add(user);
+        }
+
+        return user;
     }
 
     /**
      * Adds account to the database
      * @param userId: id of user
      */
-    public static void addAccount(int userId) {
-        // TODO implement here
+    public static void addAccount(int userId, String type) {
+        synchronized (accounts) {
+            Account account = new Account(accounts.size() + 1, userId, type);
+            accounts.add(account);
+        }
     }
 
     /**
@@ -39,7 +64,18 @@ public class BankServer {
      * @param addition: addition to account
      */
     public static void updateAccount(int accountId, int addition) {
-        // TODO implement here
+        synchronized (accounts) {
+            Account account = accounts.stream()
+                    .filter((acc) -> acc.getAccountId() == accountId)
+                    .findAny()
+                    .orElse(null);
+
+            if (account == null) {
+                throw new IllegalArgumentException("No account with such id: " + accountId);
+            }
+
+            account.updateRemainder(addition);
+        }
     }
 
 }

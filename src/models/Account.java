@@ -43,4 +43,7 @@ public class Account {
         return this.remainder;
     }
 
+    public void updateRemainder(int addition) {
+        this.remainder += addition; // TODO: Add Atomic addition
+    }
 }

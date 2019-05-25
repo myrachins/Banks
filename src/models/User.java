@@ -2,8 +2,6 @@ package models;
 
 import utils.Bank;
 
-import java.util.*;
-
 /**
  * Посылает запросы в банк. Проверить/изменить баланс, сделать перевод.
  */
