@@ -47,7 +47,11 @@ public class Account {
     }
 
     public synchronized void updateBalance(int addition) {
-        // TODO: Check the bounds of the new balance
+        if (balance + addition < 0) {
+            throw new IllegalArgumentException("Not enough money for transaction. Need additionally: "
+                    + -(balance + addition));
+        }
+        // TODO: Check the right bound of the new balance
         this.balance += addition; // TODO: Add Atomic addition
     }
 }

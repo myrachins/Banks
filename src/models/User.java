@@ -46,6 +46,10 @@ public class User {
         Bank.updateBalance(this, accountId, addition);
     }
 
+    public void sendMoney(int fromAccountId, int toAccountId, int addition) {
+        Bank.sendMoney(this, fromAccountId, toAccountId, addition);
+    }
+
     public int getUserId() {
         return this.userId;
     }

@@ -34,4 +34,12 @@ public class Bank {
         }
         BankServer.updateAccount(accountId, addition);
     }
+
+    public static void sendMoney(User user, int fromAccountId, int toAccountId, int addition) {
+        if (addition < 0) {
+            throw new IllegalArgumentException("You can't send credit to another people");
+        }
+        updateBalance(user, fromAccountId, -addition); // We reduced balance of sending user
+        BankServer.updateAccount(toAccountId, addition); // We sent addition to destiny
+    }
 }
