@@ -1,5 +1,7 @@
 package models;
 
+import utils.AppSettings;
+
 /**
  * Одному пользователю может соответствовать несколько счетов. У счета есть тип - Checking, Saving.
  * В рамках предлагаемой задачи принципиально ничем не отличаются, только полем type.
@@ -25,6 +27,7 @@ public class Account {
         this.accountId = accountId;
         this.userId = userId;
         this.type = type;
+        this.balance = AppSettings.START_BALANCE;
     }
 
     public int getAccountId() {
@@ -39,11 +42,12 @@ public class Account {
         return this.type;
     }
 
-    public int getBalance() {
+    public synchronized int getBalance() {
         return this.balance;
     }
 
-    public void updateBalance(int addition) {
+    public synchronized void updateBalance(int addition) {
+        // TODO: Check the bounds of the new balance
         this.balance += addition; // TODO: Add Atomic addition
     }
 }

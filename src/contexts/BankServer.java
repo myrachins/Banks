@@ -53,11 +53,13 @@ public class BankServer {
      * Adds account to the database
      * @param userId: id of user
      */
-    public static void addAccount(int userId, String type) {
+    public static Account addAccount(int userId, String type) {
+        Account account;
         synchronized (accounts) {
-            Account account = new Account(accounts.size() + 1, userId, type);
+            account = new Account(accounts.size() + 1, userId, type);
             accounts.add(account);
         }
+        return account;
     }
 
     /**
