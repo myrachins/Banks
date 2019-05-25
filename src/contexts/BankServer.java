@@ -10,6 +10,8 @@ import java.util.*;
  */
 public class BankServer {
 
+    private BankServer() { }
+
     private static final ArrayList<User> users = new ArrayList<>();
 
     private static final ArrayList<Account> accounts = new ArrayList<>();
@@ -44,7 +46,6 @@ public class BankServer {
             user = new User(users.size() + 1, login, password);
             users.add(user);
         }
-
         return user;
     }
 
@@ -73,7 +74,6 @@ public class BankServer {
             if (account == null) {
                 throw new IllegalArgumentException("No account with such id: " + accountId);
             }
-
             account.updateRemainder(addition);
         }
     }

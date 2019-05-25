@@ -1,5 +1,7 @@
 package utils;
 
+import contexts.BankServer;
+import models.Account;
 import models.User;
 
 /**
@@ -9,12 +11,27 @@ import models.User;
  */
 public class Bank {
 
+    private Bank() { }
+
+    private static Checker checker = new Checker();
+
     public static int getRemainder(User user, int accountId) {
-        // TODO implement here
-        return 0;
+        if (!checker.hasRights(user.getUserId(), accountId)
+                || !checker.isPasswordValid(user.getUserId(), user.getPassword())) {
+            throw new IllegalArgumentException("User doesn't have enough rights to see account with such id: " + accountId);
+        }
+        Account account = BankServer.GetAccount(accountId);
+        if (account == null) {
+            throw new IllegalArgumentException("No account with such id: " + accountId);
+        }
+        return account.getRemainder();
     }
 
     public static void updateBalance(User user, int accountId, int addition) {
-        // TODO implement here
+        if (!checker.hasRights(user.getUserId(), accountId)
+                || !checker.isPasswordValid(user.getUserId(), user.getPassword())) {
+            throw new IllegalArgumentException("User doesn't have enough rights to see account with such id: " + accountId);
+        }
+        BankServer.updateAccount(accountId, addition);
     }
 }
