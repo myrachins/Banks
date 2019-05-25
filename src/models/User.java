@@ -1,17 +1,13 @@
 package models;
 
+import utils.Bank;
+
 import java.util.*;
 
 /**
  * Посылает запросы в банк. Проверить/изменить баланс, сделать перевод.
  */
 public class User {
-
-    /**
-     * Default constructor
-     */
-    public User() {
-    }
 
     /**
      * Id of user
@@ -28,65 +24,40 @@ public class User {
      */
     private String password;
 
-
-
-
-
-
-    /**
-     * @param login 
-     * @param password
-     */
-    public void User(String login, String password) {
-        // TODO implement here
+    public User(int userId, String login, String password) {
+        this.userId = userId;
+        this.login = login;
+        this.password = password;
     }
 
     /**
      * Gets the remainder of current user on specified account
-     * @param accountId 
-     * @return
+     * @param accountId: id of account
+     * @return remainder of current
      */
     public int getRemainder(int accountId) {
-        // TODO implement here
-        return 0;
+        return Bank.getRemainder(this, accountId);
     }
 
     /**
      * Updates balance of account on addition amount
-     * @param accountId 
-     * @param addition 
-     * @return
+     * @param accountId: id of account
+     * @param addition: value to be added to remainder
      */
     public void updateBalance(int accountId, int addition) {
-        // TODO implement here
-        return null;
+        Bank.updateBalance(this, accountId, addition);
     }
 
-    /**
-     * Gets id of user
-     * @return
-     */
     public int getUserId() {
-        // TODO implement here
-        return 0;
+        return this.userId;
     }
 
-    /**
-     * Gets login of user
-     * @return
-     */
     public String getLogin() {
-        // TODO implement here
-        return "";
+        return this.login;
     }
 
-    /**
-     * Gets password of user
-     * @return
-     */
     public String getPassword() {
-        // TODO implement here
-        return "";
+        return this.password;
     }
 
 }

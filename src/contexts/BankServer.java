@@ -1,5 +1,8 @@
 package contexts;
 
+import models.Account;
+import models.User;
+
 import java.util.*;
 
 /**
@@ -7,33 +10,16 @@ import java.util.*;
  */
 public class BankServer {
 
-    /**
-     * Default constructor
-     */
-    public BankServer() {
-    }
-
-    /**
-     * 
-     */
     private static ArrayList<User> users;
 
-    /**
-     * 
-     */
     private static ArrayList<Account> accounts;
 
 
-
-
-
-
-
     /**
-     * Adds user to the databse
-     * @param login 
-     * @param password 
-     * @return
+     * Adds user to the database
+     * @param login: login of user
+     * @param password: password of user
+     * @return Created user
      */
     public static User addUser(String login, String password) {
         // TODO implement here
@@ -41,23 +27,19 @@ public class BankServer {
     }
 
     /**
-     * Adds account to the data base
-     * @param userId 
-     * @return
+     * Adds account to the database
+     * @param userId: id of user
      */
     public static void addAccount(int userId) {
         // TODO implement here
-        return null;
     }
 
     /**
-     * @param accountId 
-     * @param addition 
-     * @return
+     * @param accountId: id of account
+     * @param addition: addition to account
      */
     public static void updateAccount(int accountId, int addition) {
         // TODO implement here
-        return null;
     }
 
 }
