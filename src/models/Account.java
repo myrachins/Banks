@@ -2,6 +2,8 @@ package models;
 
 import utils.AppSettings;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Одному пользователю может соответствовать несколько счетов. У счета есть тип - Checking, Saving.
  * В рамках предлагаемой задачи принципиально ничем не отличаются, только полем type.
@@ -21,13 +23,13 @@ public class Account {
     /**
      * Remainder amount on the account
      */
-    private int balance;
+    private AtomicInteger balance;
 
     public Account(int accountId, int userId, String type) {
         this.accountId = accountId;
         this.userId = userId;
         this.type = type;
-        this.balance = AppSettings.START_BALANCE;
+        this.balance = new AtomicInteger(AppSettings.START_BALANCE);
     }
 
     public int getAccountId() {
@@ -42,16 +44,17 @@ public class Account {
         return this.type;
     }
 
-    public synchronized int getBalance() {
-        return this.balance;
+    public int getBalance() {
+        return this.balance.get();
     }
 
-    public synchronized void updateBalance(int addition) {
-        if (balance + addition < 0) {
-            throw new IllegalArgumentException("Not enough money for transaction. Need additionally: "
-                    + -(balance + addition));
-        }
-        // TODO: Check the right bound of the new balance
-        this.balance += addition; // TODO: Add Atomic addition
+    public void updateBalance(int addition) {
+        balance.updateAndGet(operand -> {
+            if (operand + addition < 0) {
+                throw new IllegalArgumentException("Not enough money for transaction. Need additionally: "
+                        + -(balance.get() + addition));
+            }
+            return operand + addition;
+        });
     }
 }
