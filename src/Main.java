@@ -1,4 +1,5 @@
 import contexts.BankServer;
+import models.Account;
 import models.User;
 import utils.Bank;
 
@@ -11,26 +12,26 @@ public class Main {
         User user1 = BankServer.addUser("login_4", "qwerty12345");
         User user2 = BankServer.addUser("login_5", "qwerty12345");
 
-        int accountId1 = BankServer.addAccount(user1.getUserId(), "Checking");
-        int accountId2 = BankServer.addAccount(user1.getUserId(), "Saving");
-        int accountId3 = BankServer.addAccount(user2.getUserId(), "Checking");
+        Account account1 = BankServer.addAccount(user1.getUserId(), "Checking");
+        Account account2 = BankServer.addAccount(user1.getUserId(), "Saving");
+        Account account3 = BankServer.addAccount(user2.getUserId(), "Checking");
 
-        user1.updateBalance(accountId1, -100); // Getting 100 y from account
+        user1.updateBalance(account1.getAccountId(), -100); // Getting 100 y from account
 
         // Normal transaction
-        user1.sendMoney(accountId1, accountId2, 100); // sending from first account to another
+        user1.sendMoney(account1.getAccountId(), account2.getAccountId(), 100); // sending from first account to another
 
         // Not enough money for sending
         try {
-            user1.sendMoney(accountId1, accountId2, 1000);
+            user1.sendMoney(account1.getAccountId(), account2.getAccountId(), 1000);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
         // Sending money from one user to another
-        user2.sendMoney(accountId3, accountId1, 500);
+        user2.sendMoney(account3.getAccountId(), account1.getAccountId(), 500);
 
-        System.out.println("Account 1 balance: " + Bank.getBalance(user1, accountId1));
-        System.out.println("Account 2 balance: " + Bank.getBalance(user1, accountId2));
+        System.out.println("Account 1 balance: " + Bank.getBalance(user1, account1.getAccountId()));
+        System.out.println("Account 2 balance: " + Bank.getBalance(user1, account2.getAccountId()));
     }
 }

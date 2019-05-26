@@ -54,13 +54,13 @@ public class BankServer {
      * @param userId: id of user
      * @return Id of created account
      */
-    public static int addAccount(int userId, String type) {
+    public static Account addAccount(int userId, String type) {
         Account account;
         synchronized (accounts) {
             account = new Account(accounts.size() + 1, userId, type);
             accounts.add(account);
         }
-        return account.getAccountId();
+        return account;
     }
 
     /**
